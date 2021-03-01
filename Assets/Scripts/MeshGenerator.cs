@@ -76,10 +76,11 @@ public static class MeshGenerator
                     // Triângulo definido pelos véritices: d-a-b
                     meshData.AddTriangles(d, a, b);
                 }
-
-                vertexIndex++;
             }
         }
+
+        meshData.BakeNormals();
+
         return meshData;
     }
 }
@@ -89,6 +90,7 @@ public class MeshData
     Vector3[] vertices;
     int[] triangles;
     Vector2[] uvs;
+    Vector3[] bakedNormals;
 
     Vector3[] borderVertices;
     int[] borderTriangles;
@@ -211,6 +213,11 @@ public class MeshData
     }
 
 
+    public void BakeNormals()
+    {
+        bakedNormals = CalculateNormals();
+    }
+
     public Mesh CreateMesh()
     {
         Mesh mesh = new Mesh()
@@ -219,7 +226,7 @@ public class MeshData
             triangles = triangles,
             uv = uvs
         };
-        mesh.normals = CalculateNormals();
+        mesh.normals = bakedNormals;
         return mesh;
     }
 }
