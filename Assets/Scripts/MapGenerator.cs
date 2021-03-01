@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
 
     public Noise.NormalizeMode normalizeMode;
 
-    public const int mapChunkSize = 241;
+    public const int mapChunkSize = 239;
     [Range(0, 6)] // O tamanho do mapa (mapChunkSize) tem que ser divisível pelo LoD 
     public int editorPreviewLOD; // este LoD vai ser duplicado, e dá o número de vértices a ignorar
     public int seed;
@@ -125,7 +125,7 @@ public class MapGenerator : MonoBehaviour
     private MapData GenerateMapData(Vector2 center)
     {
         // Gerar o mapa da alturas
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, center + offset, normalizeMode);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistance, lacunarity, center + offset, normalizeMode);
 
         // Obter as cores conforme a altura dos biomas
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
